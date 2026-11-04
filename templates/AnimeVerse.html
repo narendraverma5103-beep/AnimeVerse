@@ -12,8 +12,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Custom CSS (Flask Static Path) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body id="home" class="relative select-none">
 
@@ -286,9 +286,9 @@
         <p>&copy; 2026 <span>AnimeVerse</span>. Developed with ❤️ by Narendra Verma.</p>
     </footer>
 
-    <!-- Custom JavaScript Scripts -->
-    <script src="js/sidebar.js"></script>
-    <script src="js/smooth_scroll.js"></script>
-    <script src="js/bounce_cube.js"></script>
+    <!-- Custom JavaScript Scripts (Flask Static Path) -->
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/smooth_scroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bounce_cube.js') }}"></script>
 </body>
 </html>
