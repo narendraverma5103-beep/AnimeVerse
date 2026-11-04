@@ -1,27 +1,102 @@
+<!-- History Section with Clear History & Dynamic Empty State -->
 <section class="content-section" id="history">
     <div class="section-header">
         <h2 class="section-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-blue)"></i> Watch History</h2>
+        <!-- Clear History Button -->
+        <button id="clearHistoryBtn" class="clear-history-btn" onclick="clearWatchHistory()">
+            <i class="fa-solid fa-trash-can"></i> Clear History
+        </button>
     </div>
-    <div class="anime-grid">
-        <div class="anime-card">
-            <div class="poster-wrapper skeleton-loader">
-                <span class="card-badge">EP 12</span>
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="History 1" loading="lazy">
-            </div>
-            <div class="card-info">
-                <div class="anime-name">Solo Leveling</div>
-                <div class="meta-info"><span>Watched 2h ago</span></div>
+
+    <!-- Watch History Content Wrapper (Dual Rows) -->
+    <div id="historyContentWrapper" class="crunchyroll-rows-wrapper">
+        
+        <!-- ROW 1: Watch History -->
+        <div class="movie-row-scroll">
+            <div class="row-cards-track" id="historyRow1">
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 12</span>
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="History 1" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Solo Leveling</div>
+                        <div class="meta-info"><span>Watched 2h ago</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 08</span>
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 2" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Jujutsu Kaisen</div>
+                        <div class="meta-info"><span>Watched yesterday</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 24</span>
+                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" alt="History 3" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Demon Slayer</div>
+                        <div class="meta-info"><span>Watched 2 days ago</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 05</span>
+                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" alt="History 4" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">One Piece</div>
+                        <div class="meta-info"><span>Watched 3 days ago</span></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="anime-card">
-            <div class="poster-wrapper skeleton-loader">
-                <span class="card-badge">EP 08</span>
-                <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 2" loading="lazy">
-            </div>
-            <div class="card-info">
-                <div class="anime-name">Jujutsu Kaisen</div>
-                <div class="meta-info"><span>Watched yesterday</span></div>
+
+        <!-- ROW 2: Watch History -->
+        <div class="movie-row-scroll">
+            <div class="row-cards-track" id="historyRow2">
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 01</span>
+                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" alt="History 5" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Naruto Shippuden</div>
+                        <div class="meta-info"><span>Watched last week</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 10</span>
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 6" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Attack on Titan</div>
+                        <div class="meta-info"><span>Watched last week</span></div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
-</section>
+
+    <!-- Empty State Container with Chroma Key Canvas for Green Screen Removal -->
+    <div id="emptyHistoryState" class="empty-history-state" style="display: none;">
+        <div class="empty-video-container">
+            <!-- Transparent Chroma Key Canvas -->
+            <canvas id="historyEmptyCanvas"></canvas>
+            <!-- Source Video (Loaded properly in background without display: none) -->
+            <video id="historySourceVideo" crossorigin="anonymous" autoplay loop muted playsinline preload="auto">
+                <source src="https://res.cloudinary.com/irecrpdg/video/upload/v1793771600/gemini_generated_video_e4513a66.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <h3 class="empty-history-title">No Watch History Found</h3>
+        <p class="empty-history-desc">You haven't watched any anime yet. Start exploring your favorite series now!</p>
+    </div>
+</section> 

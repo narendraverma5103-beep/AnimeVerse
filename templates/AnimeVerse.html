@@ -98,41 +98,19 @@
 
         {% include 'components/movies_section.html' %}
 
-       
+        {% include 'components/history_section.html' %}
 
 
 
 
 
 
-        <!-- History Section -->
-        <section class="content-section" id="history">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-blue)"></i> Watch History</h2>
-            </div>
-            <div class="anime-grid">
-                <div class="anime-card">
-                    <div class="poster-wrapper skeleton-loader">
-                        <span class="card-badge">EP 12</span>
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="History 1" loading="lazy">
-                    </div>
-                    <div class="card-info">
-                        <div class="anime-name">Solo Leveling</div>
-                        <div class="meta-info"><span>Watched 2h ago</span></div>
-                    </div>
-                </div>
-                <div class="anime-card">
-                    <div class="poster-wrapper skeleton-loader">
-                        <span class="card-badge">EP 08</span>
-                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 2" loading="lazy">
-                    </div>
-                    <div class="card-info">
-                        <div class="anime-name">Jujutsu Kaisen</div>
-                        <div class="meta-info"><span>Watched yesterday</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
+
+
+        
+
+
 
         <!-- Popular Section -->
         <section class="content-section" id="popular">
@@ -248,5 +226,6 @@
     <script src="{{ url_for('static', filename='js/bounce_cube.js') }}"></script>
     <!-- Chroma Key & 3D script link -->
 <script src="{{ url_for('static', filename='js/Chroma_3D.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
