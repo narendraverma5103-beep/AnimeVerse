@@ -1,4 +1,4 @@
-/* --- Hero Banner Section (Text + Character) --- */
+/* --- Hero Banner Section & Foreground Character Styling --- */
 .hero-banner {
     position: relative;
     border-radius: 16px;
@@ -60,16 +60,16 @@
     font-size: 0.95rem;
 }
 
-/* हीरो बैनर राइट-साइड 3D क्रोमा कैरेक्टर कंटेनर */
+/* हीरो बैनर का राइट-साइड कैरेक्टर कंटेनर (उच्च z-index के साथ ताकि सबसे ऊपर दिखे) */
 .hero-character-container {
     position: relative;
-    z-index: 30;
+    z-index: 40; /* यह सुनिश्चित करेगा कि यह ओवरले या बैकग्राउंड के ऊपर रहे */
     width: 380px;
     height: 380px;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
+    pointer-events: none; /* माउस क्लिक्स सीधे पास होने के लिए */
 }
 
 #outputCanvas {
@@ -82,4 +82,22 @@
     background: transparent;
     image-rendering: high-quality;
     filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+}
+
+/* मोबाइल रिस्पॉन्सिव */
+@media (max-width: 768px) {
+    .hero-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+    .hero-content {
+        padding: 0;
+        max-width: 100%;
+    }
+    .hero-character-container {
+        width: 250px;
+        height: 250px;
+        margin-top: 25px;
+    }
 }

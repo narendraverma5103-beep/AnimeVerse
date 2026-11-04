@@ -12,8 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<!-- Chroma Key & 3D script link -->
-<script src="{{ url_for('static', filename='js/Chroma_3D.js') }}"></script>
+
 
     <!-- Custom CSS (Flask Static Path) -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -92,16 +91,12 @@
 
     <!-- Main Content Container -->
     <main class="container">
-        <!-- Hero Section -->
-        <section class="hero-banner content-section" id="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <span class="hero-tag"><i class="fa-solid fa-sparkles"></i> WELCOME TO ANIMEVERSE</span>
-                <h1 class="hero-title">Welcome to Your Ultimate Anime Destination!</h1>
-                <p class="hero-desc">Hi! Explore trending anime series, blockbuster movies, and enjoy seamless 4K HD streaming across all devices.</p>
-                <a href="#popular" class="btn-glow"><i class="fa-solid fa-compass"></i> Explore Catalog</a>
-            </div>
-        </section>
+
+
+
+        {% include 'components/hero_section.html' %}
+
+
 
         <!-- Movies Section -->
         <section class="content-section" id="movies">
@@ -293,5 +288,7 @@
     <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
     <script src="{{ url_for('static', filename='js/smooth_scroll.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bounce_cube.js') }}"></script>
+    <!-- Chroma Key & 3D script link -->
+<script src="{{ url_for('static', filename='js/Chroma_3D.js') }}"></script>
 </body>
 </html>
