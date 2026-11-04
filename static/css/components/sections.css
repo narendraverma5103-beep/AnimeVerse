@@ -15,16 +15,14 @@
     z-index: 5;
 }
 
-
-
-
-
-
-
+.content-section {
+    scroll-margin-top: 95px;
+    margin-bottom: 55px;
+}
 
 
 /* ==========================================
-   4. SECTION HEADERS & ANIME GRID CARDS (Movies, Popular, Trending, History)
+   4. SECTION HEADERS & CRUNCHYROLL STYLE DUAL-ROW HORIZONTAL SCROLL
    ================================---------- */
 .section-header {
     display: flex;
@@ -43,6 +41,46 @@
     padding-left: 12px;
 }
 
+/* Crunchyroll Style Dual-Rows Wrapper */
+.crunchyroll-rows-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Har ek row ka apna independent horizontal scroll container */
+.movie-row-scroll {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-blue) rgba(255, 255, 255, 0.05);
+}
+
+.movie-row-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.movie-row-scroll::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 10px;
+}
+
+/* Cards track jo horizontal direction me arrange karega */
+.row-cards-track {
+    display: flex;
+    gap: 18px;
+    min-width: max-content;
+}
+
+/* Desktop par ek row me theek 4 cards dikhane ke liye fixed width calculation */
+.row-cards-track .anime-card {
+    width: calc((1250px - 40px - (3 * 18px)) / 4);
+    flex: 0 0 auto;
+}
+
+/* Standard grid for other sections (Popular, Trending, History) */
 .anime-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -61,7 +99,7 @@
 }
 
 .anime-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     border-color: var(--accent-blue);
     box-shadow: 0 10px 25px rgba(0, 210, 255, 0.3);
 }
@@ -69,7 +107,7 @@
 .poster-wrapper {
     position: relative;
     width: 100%;
-    height: 260px;
+    height: 175px; /* हाइट ऑप्टिमाइज़ की गई है ताकि दोनों रो परफेक्ट दिखें */
     overflow: hidden;
 }
 
@@ -86,26 +124,26 @@
 
 .card-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
     background: rgba(0, 0, 0, 0.82);
     color: #ffcc00;
-    padding: 4px 8px;
+    padding: 3px 7px;
     border-radius: 6px;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
     backdrop-filter: blur(4px);
     z-index: 2;
 }
 
 .card-info {
-    padding: 14px;
+    padding: 10px 12px;
 }
 
 .anime-name {
-    font-size: 0.98rem;
+    font-size: 0.92rem;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -115,7 +153,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--text-muted);
-    font-size: 0.78rem;
+    font-size: 0.75rem;
 }
 
 
@@ -186,18 +224,23 @@ footer span {
     .nav-links, .auth-btns { display: none; }
     .menu-toggle { display: block; }
     .search-container { max-width: 180px; }
+    .row-cards-track .anime-card { width: 230px; }
     .anime-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .sub-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
     .hero-title { font-size: 1.9rem; }
     .hero-character-container { width: 300px; height: 300px; }
 }
 
-/* Mobile View (Max Width: 768px) */
+/* Mobile View (Max Width: 768px) - 2 full + 1 half card view */
 @media (max-width: 768px) {
     nav { padding: 12px 4%; }
     .search-container { max-width: 140px; }
     .search-box input { padding: 6px 30px 6px 10px; font-size: 0.8rem; }
     
+    .row-cards-track .anime-card { width: 145px; }
+    .poster-wrapper { height: 140px; }
+    .crunchyroll-rows-wrapper { gap: 15px; }
+
     /* मोबाइल व्यू में हीरो बैनर वर्टिकल हो जाएगा (ऊपर टेक्स्ट, नीचे करैक्टर) */
     .hero-banner {
         flex-direction: column;
@@ -221,6 +264,8 @@ footer span {
 
 /* Small Mobile View (Max Width: 480px) */
 @media (max-width: 480px) {
+    .row-cards-track .anime-card { width: 135px; }
+    .poster-wrapper { height: 130px; }
     .anime-grid { grid-template-columns: 1fr; }
     .hero-character-container { width: 220px; height: 220px; }
 }
