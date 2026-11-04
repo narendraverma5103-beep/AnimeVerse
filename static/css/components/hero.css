@@ -1,0 +1,85 @@
+/* --- Hero Banner Section (Text + Character) --- */
+.hero-banner {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 45px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    scroll-margin-top: 95px;
+    background: rgba(18, 24, 38, 0.65);
+    backdrop-filter: blur(10px);
+    padding: 0 30px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(9, 11, 16, 0.95) 45%, rgba(9, 11, 16, 0.6) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 30;
+    padding: 40px 0;
+    max-width: 600px;
+    flex: 1;
+}
+
+.hero-tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent-blue);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.hero-title {
+    font-size: 2.3rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    line-height: 1.25;
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* हीरो बैनर राइट-साइड 3D क्रोमा कैरेक्टर कंटेनर */
+.hero-character-container {
+    position: relative;
+    z-index: 30;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#outputCanvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background: transparent;
+    image-rendering: high-quality;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+}
