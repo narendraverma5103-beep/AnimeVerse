@@ -283,17 +283,18 @@ nav {
     position: fixed;
     top: 0;
     right: -310px;
-    width: 290px;
+    width: 270px;
     height: 100vh;
     background: #0d1117;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.9);
     z-index: 2001;
-    padding: 25px 20px;
+    padding: 20px 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
 }
 
 .sidebar-menu.active {
@@ -304,9 +305,9 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 18px;
+    padding-bottom: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .close-btn {
@@ -321,13 +322,13 @@ nav {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .sidebar-links a {
     color: var(--text-main);
     text-decoration: none;
-    font-size: 0.98rem;
+    font-size: 0.95rem;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -343,13 +344,19 @@ nav {
 }
 
 .sidebar-auth {
-    padding-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    width: 100%;
 }
 
 .sidebar-auth .btn-glow {
     width: 100%;
     justify-content: center;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    box-sizing: border-box;
 }
 
 /* Main Layout & Containers */
@@ -569,7 +576,7 @@ footer span {
 @media (max-width: 1024px) {
     .nav-links, .auth-btns { display: none; }
     .menu-toggle { display: block; }
-    .search-container { max-width: 200px; }
+    .search-container { max-width: 180px; }
     .anime-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .sub-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
     .hero-title { font-size: 1.9rem; }
@@ -577,7 +584,8 @@ footer span {
 
 @media (max-width: 768px) {
     nav { padding: 12px 4%; }
-    .search-container { max-width: 150px; }
+    .search-container { max-width: 140px; }
+    .search-box input { padding: 6px 30px 6px 10px; font-size: 0.8rem; }
     .anime-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .sub-grid { grid-template-columns: 1fr; gap: 20px; }
     .hero-content { padding: 25px 20px; }
