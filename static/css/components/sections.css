@@ -327,6 +327,17 @@ footer span {
     .poster-wrapper { height: 140px; }
     .crunchyroll-rows-wrapper { gap: 15px; }
 
+    /* Mobile view ke liye clear history button ka size aur font-size decrease kiya gaya hai */
+    .clear-history-btn {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+        gap: 5px;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+
     /* मोबाइल व्यू में हीरो बैनर वर्टिकल हो जाएगा */
     .hero-banner {
         flex-direction: column;
@@ -354,4 +365,9 @@ footer span {
     .poster-wrapper { height: 130px; }
     .anime-grid { grid-template-columns: 1fr; }
     .hero-character-container { width: 220px; height: 220px; }
+    
+    .clear-history-btn {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+    }
 }
