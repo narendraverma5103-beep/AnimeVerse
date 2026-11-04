@@ -85,12 +85,12 @@
 
     </div>
 
-    <!-- Empty State Container with Chroma Key Canvas for Green Screen Removal -->
+    <!-- Empty State Container with Chroma Key Canvas -->
     <div id="emptyHistoryState" class="empty-history-state" style="display: none;">
         <div class="empty-video-container">
-            <!-- Transparent Chroma Key Canvas -->
+            <!-- Transparent Chroma Key Canvas jo circle ke andar render karega -->
             <canvas id="historyEmptyCanvas"></canvas>
-            <!-- Source Video (Loaded properly in background without display: none) -->
+            <!-- Source Video (Directly loaded so browser renders it properly) -->
             <video id="historySourceVideo" crossorigin="anonymous" autoplay loop muted playsinline preload="auto">
                 <source src="https://res.cloudinary.com/irecrpdg/video/upload/v1793771600/gemini_generated_video_e4513a66.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -99,4 +99,4 @@
         <h3 class="empty-history-title">No Watch History Found</h3>
         <p class="empty-history-desc">You haven't watched any anime yet. Start exploring your favorite series now!</p>
     </div>
-</section> 
+</section>
