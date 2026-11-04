@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const video = document.getElementById('heroSourceVideo');
-    const charCanvas = document.getElementById('heroCharacterCanvas');
+    const video = document.getElementById('sourceVideo');
+    const charCanvas = document.getElementById('characterCanvas');
     
     if (video && charCanvas) {
         const charCtx = charCanvas.getContext('2d', { willReadFrequently: true });
