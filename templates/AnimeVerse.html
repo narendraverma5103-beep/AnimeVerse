@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeVerse - Narendra Verma | Ultra Modern Anime Web Platform</title>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="home" class="relative select-none">
+
+    <!-- Patches Layer -->
+    <div class="ambient-patch-1"></div>
+    <div class="ambient-patch-2"></div>
+    <div class="ambient-patch-center"></div>
+
+    <!-- 3D Canvas Layer -->
+    <canvas id="threeCanvas"></canvas>
+
+    <!-- Navigation Header -->
+    <nav>
+        <a href="#hero" class="brand-logo">
+            <i class='bx bxs-cube-alt cube-icon'></i>
+            <span>ANIME VERSE</span>
+        </a>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search anime..." autocomplete="off">
+                <button type="button" title="Search Anime"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="#movies"><i class="fa-solid fa-film"></i> Anime Movies</a></li>
+            <li><a href="#history"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+            <li><a href="#popular"><i class="fa-solid fa-fire"></i> Popular Series</a></li>
+            <li><a href="#trending"><i class="fa-solid fa-bolt"></i> Trending</a></li>
+            <li><a href="#subscription"><i class="fa-solid fa-crown"></i> Sub</a></li>
+        </ul>
+
+        <div class="auth-btns">
+            <a href="#subscription" class="btn-glow"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        </div>
+
+        <button class="menu-toggle" type="button" onclick="toggleSidebar()" aria-label="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Drawer Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar-menu" id="sidebarMenu">
+        <div>
+            <div class="sidebar-header">
+                <div class="brand-logo" style="font-size:1.1rem">
+                    <i class='bx bxs-cube-alt cube-icon' style="font-size: 20px;"></i>
+                    <span>ANIME VERSE</span>
+                </div>
+                <button class="close-btn" type="button" onclick="closeSidebar()" aria-label="Close menu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <ul class="sidebar-links">
+                <li><a href="#hero" onclick="closeSidebar()"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="#movies" onclick="closeSidebar()"><i class="fa-solid fa-film"></i> Anime Movies</a></li>
+                <li><a href="#history" onclick="closeSidebar()"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+                <li><a href="#popular" onclick="closeSidebar()"><i class="fa-solid fa-fire"></i> Popular Series</a></li>
+                <li><a href="#trending" onclick="closeSidebar()"><i class="fa-solid fa-bolt"></i> Trending</a></li>
+                <li><a href="#subscription" onclick="closeSidebar()"><i class="fa-solid fa-crown"></i> Sub</a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-auth">
+            <a href="#subscription" class="btn-glow" onclick="closeSidebar()"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        </div>
+    </aside>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-banner content-section" id="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-tag"><i class="fa-solid fa-sparkles"></i> WELCOME TO ANIMEVERSE</span>
+                <h1 class="hero-title">Welcome to Your Ultimate Anime Destination!</h1>
+                <p class="hero-desc">Hi! Explore trending anime series, blockbuster movies, and enjoy seamless 4K HD streaming across all devices.</p>
+                <a href="#popular" class="btn-glow"><i class="fa-solid fa-compass"></i> Explore Catalog</a>
+            </div>
+        </section>
+
+        <!-- Movies Section -->
+        <section class="content-section" id="movies">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-film" style="color:var(--accent-blue)"></i> Anime Movies</h2>
+            </div>
+            <div class="anime-grid">
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">Movie</span>
+                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" alt="Movie 1" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Your Name (Kimi no Na wa)</div>
+                        <div class="meta-info"><span>2016</span><span>★ 8.9</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">Movie</span>
+                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" alt="Movie 2" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Spirited Away</div>
+                        <div class="meta-info"><span>2001</span><span>★ 8.6</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">Movie</span>
+                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" alt="Movie 3" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Weathering With You</div>
+                        <div class="meta-info"><span>2019</span><span>★ 8.2</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">Movie</span>
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="Movie 4" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Demon Slayer: Mugen Train</div>
+                        <div class="meta-info"><span>2020</span><span>★ 8.7</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section class="content-section" id="history">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-blue)"></i> Watch History</h2>
+            </div>
+            <div class="anime-grid">
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 12</span>
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="History 1" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Solo Leveling</div>
+                        <div class="meta-info"><span>Watched 2h ago</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">EP 08</span>
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 2" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Jujutsu Kaisen</div>
+                        <div class="meta-info"><span>Watched yesterday</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Section -->
+        <section class="content-section" id="popular">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-fire" style="color:var(--accent-blue)"></i> Popular Series</h2>
+            </div>
+            <div class="anime-grid">
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">TV</span>
+                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" alt="Popular 1" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Attack on Titan</div>
+                        <div class="meta-info"><span>4 Seasons</span><span>★ 9.0</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">TV</span>
+                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" alt="Popular 2" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">One Piece</div>
+                        <div class="meta-info"><span>1000+ EPs</span><span>★ 8.9</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">TV</span>
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Popular 3" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Naruto Shippuden</div>
+                        <div class="meta-info"><span>500 EPs</span><span>★ 8.7</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">TV</span>
+                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" alt="Popular 4" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Demon Slayer</div>
+                        <div class="meta-info"><span>3 Seasons</span><span>★ 8.8</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Section -->
+        <section class="content-section" id="trending">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-bolt" style="color:var(--accent-blue)"></i> Trending Now</h2>
+            </div>
+            <div class="anime-grid">
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">Trending</span>
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="Trending 1" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Bleach: Thousand-Year Blood War</div>
+                        <div class="meta-info"><span>2024</span><span>★ 9.1</span></div>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="poster-wrapper skeleton-loader">
+                        <span class="card-badge">Trending</span>
+                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" alt="Trending 2" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="anime-name">Chainsaw Man</div>
+                        <div class="meta-info"><span>2023</span><span>★ 8.5</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscription Section -->
+        <section class="content-section" id="subscription">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-crown" style="color:var(--accent-blue)"></i> VIP Subscription</h2>
+            </div>
+            <div class="sub-grid">
+                <div class="sub-card">
+                    <div class="sub-title">Basic Fan</div>
+                    <div class="sub-price">₹199 <span>/mo</span></div>
+                    <p style="color:var(--text-muted); font-size: 0.88rem;">720p HD Streaming on 1 Device</p>
+                </div>
+                <div class="sub-card popular">
+                    <div class="sub-title">Otaku VIP</div>
+                    <div class="sub-price">₹499 <span>/mo</span></div>
+                    <p style="color:var(--text-muted); font-size: 0.88rem;">1080p Ultra HD Streaming on 4 Devices</p>
+                </div>
+                <div class="sub-card">
+                    <div class="sub-title">Anime Pro</div>
+                    <div class="sub-price">₹799 <span>/mo</span></div>
+                    <p style="color:var(--text-muted); font-size: 0.88rem;">4K Ultra HD + Offline Downloads</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>AnimeVerse</span>. Developed with ❤️ by Narendra Verma.</p>
+    </footer>
+
+    <!-- Custom JavaScript Scripts -->
+    <script src="js/sidebar.js"></script>
+    <script src="js/smooth_scroll.js"></script>
+    <script src="js/bounce_cube.js"></script>
+</body>
+</html>
