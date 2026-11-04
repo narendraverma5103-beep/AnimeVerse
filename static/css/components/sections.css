@@ -7,18 +7,7 @@
 /* ==========================================
    1. MAIN CONTAINER & SECTION LAYOUT
    ================================---------- */
-   .container {
-    max-width: 1250px;
-    margin: 0 auto;
-    padding: 30px 20px 60px 20px;
-    position: relative;
-    z-index: 5;
-}
-
-.content-section {
-    scroll-margin-top: 95px;
-    margin-bottom: 55px;
-}
+ 
 
 
 /* ==========================================
