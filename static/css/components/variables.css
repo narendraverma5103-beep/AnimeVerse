@@ -1,0 +1,9 @@
+:root {
+    --bg-dark: #090b10;
+    --card-bg: rgba(18, 24, 38, 0.75);
+    --accent-blue: #00d2ff;
+    --glow-blue: #0072ff;
+    --text-main: #f0f6fc;
+    --text-muted: #8b949e;
+    --skeleton-base: rgba(255, 255, 255, 0.06);
+}

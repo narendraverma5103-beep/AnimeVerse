@@ -1,0 +1,100 @@
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -310px;
+    width: 270px;
+    height: 100vh;
+    background: #0d1117;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.9);
+    z-index: 2001;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* ऊपर से आइटम्स को अलाइन करने के लिए */
+    overflow-y: auto; /* मोबाइल स्क्रीन पर आसानी से स्क्रॉल करने के लिए ताकि बटन छिप न सके */
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.sidebar-menu.active {
+    right: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.sidebar-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.sidebar-links a:hover, .sidebar-links a.active {
+    background: rgba(0, 210, 255, 0.12);
+    color: var(--accent-blue);
+}
+
+.sidebar-auth {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 30px; /* ऊपर की लिंक्स से दूरी बनाए रखने के लिए */
+    margin-bottom: 30px; /* मोबाइल पर नीचे से बिल्कुल कटने न पाए */
+    width: 100%;
+}
+
+.sidebar-auth .btn-glow {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    box-sizing: border-box;
+}
