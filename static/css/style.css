@@ -1,14 +1,8 @@
-/* ==========================================
-   ANIMEVERSE - MAIN STYLESHEET (style.css)
-   ========================================== */
-
-   @import url('components/variables.css');
-   @import url('components/global.css');
-   @import url('components/canvas3d.css');
-   @import url('components/skeleton.css');
-   @import url('components/buttons.css');
-   @import url('components/navbar.css');
-   @import url('components/sidebar.css');
-   @import url('components/hero.css');
-   @import url('components/anime_cards.css');
-   @import url('components/subscription.css');
+@import url('components/variables.css');
+@import url('components/global.css');
+@import url('components/canvas3d.css');
+@import url('components/skeleton.css');
+@import url('components/buttons.css');
+@import url('components/navbar.css');
+@import url('components/sidebar.css');
+@import url('components/sections.css'); 
