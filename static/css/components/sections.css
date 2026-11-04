@@ -1,3 +1,9 @@
+/* ==========================================================================
+   ANIMEVERSE - UNIFIED SECTIONS STYLESHEET
+   Developed by Narendra Verma
+   ========================================================================== */
+
+
 /* ==========================================
    1. MAIN CONTAINER & SECTION LAYOUT
    ================================---------- */
@@ -9,109 +15,16 @@
     z-index: 5;
 }
 
-.content-section {
-    scroll-margin-top: 95px;
-    margin-bottom: 55px;
-}
+
+
+
+
+
+
 
 
 /* ==========================================
-   2. HERO BANNER SECTION (Text + Character Layout)
-   ================================---------- */
-.hero-banner {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 45px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* लेफ्ट में टेक्स्ट और राइट में करैक्टर सेट करने के लिए */
-    scroll-margin-top: 95px;
-    background: rgba(18, 24, 38, 0.65);
-    backdrop-filter: blur(10px);
-    padding: 0 30px;
-}
-
-/* हीरो बैनर का डार्क शेड ओवरले */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(9, 11, 16, 0.95) 45%, rgba(9, 11, 16, 0.6) 100%);
-    z-index: 2;
-}
-
-/* हीरो बैनर का लेफ्ट साइड टेक्स्ट कंटेंट */
-.hero-content {
-    position: relative;
-    z-index: 30;
-    padding: 40px 0;
-    max-width: 600px;
-    flex: 1;
-}
-
-.hero-tag {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--accent-blue);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.hero-title {
-    font-size: 2.3rem;
-    font-weight: 900;
-    margin-bottom: 15px;
-    line-height: 1.25;
-}
-
-.hero-desc {
-    color: var(--text-muted);
-    margin-bottom: 25px;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-
-/* ==========================================
-   3. HERO RIGHT-SIDE ANIME CHARACTER CONTAINER
-   ================================---------- */
-.hero-character-container {
-    position: relative;
-    z-index: 30;
-    width: 380px;
-    height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none; /* ताकि माउस क्लिक्स सीधे पास हो सकें */
-}
-
-/* क्रोमा-की ट्रांसपेरेंट वीडियो आउटपुट कैनवास (#outputCanvas) */
-#outputCanvas {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    background: transparent;
-    image-rendering: high-quality;
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
-}
-
-
-/* ==========================================
-   4. SECTION HEADERS & ANIME GRID CARDS
+   4. SECTION HEADERS & ANIME GRID CARDS (Movies, Popular, Trending, History)
    ================================---------- */
 .section-header {
     display: flex;
@@ -207,7 +120,7 @@
 
 
 /* ==========================================
-   5. SUBSCRIPTION & PRICING CARDS
+   5. VIP SUBSCRIPTION & PRICING CARDS
    ================================---------- */
 .sub-grid {
     display: grid;
@@ -265,8 +178,10 @@ footer span {
 
 
 /* ==========================================
-   7. RESPONSIVE MEDIA QUERIES
+   7. RESPONSIVE MEDIA QUERIES (TABLETS & PHONES)
    ================================---------- */
+
+/* Tablet View (Max Width: 1024px) */
 @media (max-width: 1024px) {
     .nav-links, .auth-btns { display: none; }
     .menu-toggle { display: block; }
@@ -277,6 +192,7 @@ footer span {
     .hero-character-container { width: 300px; height: 300px; }
 }
 
+/* Mobile View (Max Width: 768px) */
 @media (max-width: 768px) {
     nav { padding: 12px 4%; }
     .search-container { max-width: 140px; }
@@ -303,6 +219,7 @@ footer span {
     .hero-title { font-size: 1.5rem; }
 }
 
+/* Small Mobile View (Max Width: 480px) */
 @media (max-width: 480px) {
     .anime-grid { grid-template-columns: 1fr; }
     .hero-character-container { width: 220px; height: 220px; }
