@@ -1,4 +1,7 @@
-.container {
+/* ==========================================
+   1. MAIN CONTAINER & SECTION LAYOUT
+   ================================---------- */
+   .container {
     max-width: 1250px;
     margin: 0 auto;
     padding: 30px 20px 60px 20px;
@@ -11,6 +14,10 @@
     margin-bottom: 55px;
 }
 
+
+/* ==========================================
+   2. HERO BANNER SECTION (Text + Character Layout)
+   ================================---------- */
 .hero-banner {
     position: relative;
     border-radius: 16px;
@@ -18,29 +25,34 @@
     margin-bottom: 45px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    min-height: 380px;
+    min-height: 400px;
     display: flex;
     align-items: center;
+    justify-content: space-between; /* लेफ्ट में टेक्स्ट और राइट में करैक्टर रखने के लिए */
     scroll-margin-top: 95px;
     background: rgba(18, 24, 38, 0.65);
     backdrop-filter: blur(10px);
+    padding: 0 30px;
 }
 
+/* हीरो बैनर का डार्क शेड ओवरले */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(9, 11, 16, 0.92) 45%, rgba(9, 11, 16, 0.5) 100%);
+    background: linear-gradient(to right, rgba(9, 11, 16, 0.95) 45%, rgba(9, 11, 16, 0.6) 100%);
     z-index: 2;
 }
 
+/* हीरो बैनर का लेफ्ट साइड टेक्स्ट कंटेंट */
 .hero-content {
     position: relative;
     z-index: 30;
-    padding: 40px;
-    max-width: 650px;
+    padding: 40px 0;
+    max-width: 600px;
+    flex: 1;
 }
 
 .hero-tag {
@@ -69,6 +81,33 @@
     font-size: 0.95rem;
 }
 
+
+/* ==========================================
+   3. HERO RIGHT-SIDE ANIME CHARACTER CONTAINER
+   ================================---------- */
+.hero-character-container {
+    position: relative;
+    z-index: 30;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* ताकि माउस क्लिक्स सीधे पास हो सकें */
+}
+
+/* क्रोमा-की ट्रांसपेरेंट वीडियो कैनवास */
+#characterCanvas {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+}
+
+
+/* ==========================================
+   4. SECTION HEADERS & ANIME GRID CARDS
+   ================================---------- */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -161,6 +200,10 @@
     font-size: 0.78rem;
 }
 
+
+/* ==========================================
+   5. SUBSCRIPTION & PRICING CARDS
+   ================================---------- */
 .sub-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -196,6 +239,10 @@
     margin-bottom: 18px;
 }
 
+
+/* ==========================================
+   6. FOOTER STYLING
+   ================================---------- */
 footer {
     text-align: center;
     padding: 30px 20px;
@@ -211,7 +258,10 @@ footer span {
     color: var(--accent-blue);
 }
 
-/* Media Queries */
+
+/* ==========================================
+   7. RESPONSIVE MEDIA QUERIES
+   ================================---------- */
 @media (max-width: 1024px) {
     .nav-links, .auth-btns { display: none; }
     .menu-toggle { display: block; }
@@ -219,18 +269,36 @@ footer span {
     .anime-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .sub-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
     .hero-title { font-size: 1.9rem; }
+    .hero-character-container { width: 300px; height: 300px; }
 }
 
 @media (max-width: 768px) {
     nav { padding: 12px 4%; }
     .search-container { max-width: 140px; }
     .search-box input { padding: 6px 30px 6px 10px; font-size: 0.8rem; }
+    
+    /* मोबाइल व्यू में हीरो बैनर वर्टिकल हो जाएगा (ऊपर टेक्स्ट, नीचे करैक्टर) */
+    .hero-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+    .hero-content {
+        padding: 0;
+        max-width: 100%;
+    }
+    .hero-character-container {
+        width: 250px;
+        height: 250px;
+        margin-top: 25px;
+    }
+    
     .anime-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .sub-grid { grid-template-columns: 1fr; gap: 20px; }
-    .hero-content { padding: 25px 20px; }
     .hero-title { font-size: 1.5rem; }
 }
 
 @media (max-width: 480px) {
     .anime-grid { grid-template-columns: 1fr; }
+    .hero-character-container { width: 220px; height: 220px; }
 }
