@@ -1,5 +1,7 @@
-/* --- Common Section Headers & Grid Cards --- */
-.section-header {
+/* ==========================================
+   SECTION HEADERS & ANIME CARDS GRID
+   ========================================== */
+   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,4 +91,17 @@
     justify-content: space-between;
     color: var(--text-muted);
     font-size: 0.78rem;
+}
+
+/* --- Anime Cards Grid Responsive Media Queries --- */
+@media (max-width: 1024px) {
+    .anime-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+}
+
+@media (max-width: 768px) {
+    .anime-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+}
+
+@media (max-width: 480px) {
+    .anime-grid { grid-template-columns: 1fr; }
 }
