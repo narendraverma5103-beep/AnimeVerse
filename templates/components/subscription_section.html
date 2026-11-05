@@ -1,22 +1,87 @@
+<!-- Subscription Section with Perfectly Positioned Small Character Graphic -->
 <section class="content-section" id="subscription">
-    <div class="section-header">
-        <h2 class="section-title"><i class="fa-solid fa-crown" style="color:var(--accent-blue)"></i> VIP Subscription</h2>
+    <!-- VIP Subscription Header with Character Positioned Above 'tion' -->
+    <div class="vip-header-wrapper">
+        <div class="vip-floating-character">
+            <img src="https://res.cloudinary.com/irecrpdg/image/upload/v1793864809/1000089149-removebg-preview.png" alt="VIP Anime Character" crossorigin="anonymous">
+        </div>
+        
+        <div class="section-header" style="width: 100%; margin-bottom: 0;">
+            <h2 class="section-title"><i class="fa-solid fa-crown" style="color:var(--accent-blue)"></i> VIP Subscription</h2>
+            
+            <!-- Monthly / Yearly Billing Toggle Switch -->
+            <div class="billing-toggle-container">
+                <span class="billing-label active" id="monthlyLabel">Monthly</span>
+                <label class="switch">
+                    <input type="checkbox" id="billingToggle" onchange="toggleBillingCycle()">
+                    <span class="slider round"></span>
+                </label>
+                <span class="billing-label" id="yearlyLabel">Yearly <span class="discount-badge">2 Months Free</span></span>
+            </div>
+        </div>
     </div>
-    <div class="sub-grid">
+
+    <div class="sub-grid" style="margin-top: 25px;">
+        <!-- 1. Free Fan Plan -->
+        <div class="sub-card">
+            <div class="sub-title">Free Fan</div>
+            <div class="sub-price">₹0 <span class="duration-text">/mo</span></div>
+            <p style="color:var(--text-muted); font-size: 0.88rem; margin-bottom: 15px;">360p Standard Quality (With Ads) on 1 Device</p>
+            <div class="plan-status-badge available-tag">Available Free</div>
+        </div>
+
+        <!-- 2. Basic Fan Plan -->
         <div class="sub-card">
             <div class="sub-title">Basic Fan</div>
-            <div class="sub-price">₹199 <span>/mo</span></div>
-            <p style="color:var(--text-muted); font-size: 0.88rem;">720p HD Streaming on 1 Device</p>
+            <div class="sub-price"><span class="price-val" data-monthly="199" data-yearly="1990">₹199</span> <span class="duration-text">/mo</span></div>
+            <p style="color:var(--text-muted); font-size: 0.88rem; margin-bottom: 15px;">720p HD Streaming on 1 Device</p>
+            <button class="sub-btn">Choose Plan</button>
         </div>
+
+        <!-- 3. Otaku VIP Plan (Popular) -->
         <div class="sub-card popular">
             <div class="sub-title">Otaku VIP</div>
-            <div class="sub-price">₹499 <span>/mo</span></div>
-            <p style="color:var(--text-muted); font-size: 0.88rem;">1080p Ultra HD Streaming on 4 Devices</p>
+            <div class="sub-price"><span class="price-val" data-monthly="499" data-yearly="4990">₹499</span> <span class="duration-text">/mo</span></div>
+            <p style="color:var(--text-muted); font-size: 0.88rem; margin-bottom: 15px;">1080p Ultra HD Streaming on 4 Devices</p>
+            <button class="sub-btn popular-btn">Get Otaku VIP</button>
         </div>
+
+        <!-- 4. Anime Pro Plan -->
         <div class="sub-card">
             <div class="sub-title">Anime Pro</div>
-            <div class="sub-price">₹799 <span>/mo</span></div>
-            <p style="color:var(--text-muted); font-size: 0.88rem;">4K Ultra HD + Offline Downloads</p>
+            <div class="sub-price"><span class="price-val" data-monthly="799" data-yearly="7990">₹799</span> <span class="duration-text">/mo</span></div>
+            <p style="color:var(--text-muted); font-size: 0.88rem; margin-bottom: 15px;">4K Ultra HD + Offline Downloads</p>
+            <button class="sub-btn">Go Pro</button>
         </div>
     </div>
 </section>
+
+<!-- JavaScript for Monthly/Yearly Price Switching -->
+<script>
+    function toggleBillingCycle() {
+        const isYearly = document.getElementById('billingToggle').checked;
+        const priceElements = document.querySelectorAll('.price-val');
+        const durationElements = document.querySelectorAll('.duration-text');
+        const monthlyLabel = document.getElementById('monthlyLabel');
+        const yearlyLabel = document.getElementById('yearlyLabel');
+
+        if (isYearly) {
+            monthlyLabel.classList.remove('active');
+            yearlyLabel.classList.add('active');
+            priceElements.forEach(el => {
+                const monthlyPrice = parseInt(el.getAttribute('data-monthly'));
+                const yearlyPrice = monthlyPrice * 10; 
+                el.innerText = '₹' + yearlyPrice.toLocaleString();
+            });
+            durationElements.forEach(el => el.innerText = '/yr');
+        } else {
+            yearlyLabel.classList.remove('active');
+            monthlyLabel.classList.add('active');
+            priceElements.forEach(el => {
+                const monthlyPrice = el.getAttribute('data-monthly');
+                el.innerText = '₹' + monthlyPrice;
+            });
+            durationElements.forEach(el => el.innerText = '/mo');
+        }
+    }
+</script>
