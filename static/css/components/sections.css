@@ -26,7 +26,7 @@
     width: 100%;
 }
 
-/* Har ek row ka apna independent horizontal scroll container */
+/* Anime Movies aur general horizontal scroll container - Patla scrollbar */
 .movie-row-scroll {
     width: 100%;
     overflow-x: auto;
@@ -36,12 +36,24 @@
 }
 
 .movie-row-scroll::-webkit-scrollbar {
-    height: 6px;
+    height: 4px; /* Aur bhi patla scrollbar */
 }
 
 .movie-row-scroll::-webkit-scrollbar-thumb {
     background: var(--accent-blue);
     border-radius: 10px;
+}
+
+/* Watch History ke liye scroll container - Scrollbar bilkul hidden */
+.watch-history-scroll {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: none; /* Firefox ke liye */
+}
+
+.watch-history-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari aur Opera ke liye scrollbar gayab */
 }
 
 /* Cards track jo horizontal direction me arrange karega */
@@ -51,9 +63,16 @@
     min-width: max-content;
 }
 
-/* Desktop par ek row me theek 4 cards dikhane ke liye fixed width calculation */
+/* Anime Movies, Popular Series & Trending Now ke liye: Default 4 columns desktop par */
 .row-cards-track .anime-card {
     width: calc((1250px - 40px - (3 * 18px)) / 4);
+    flex: 0 0 auto;
+}
+
+/* Watch History ke liye: Default 3 columns desktop par */
+#historyContentWrapper .row-cards-track .anime-card,
+.watch-history-scroll .row-cards-track .anime-card {
+    width: calc((1250px - 40px - (2 * 18px)) / 3);
     flex: 0 0 auto;
 }
 
@@ -84,7 +103,7 @@
 .poster-wrapper {
     position: relative;
     width: 100%;
-    height: 175px; /* हाइट ऑप्टिमाइज़ की गई है ताकि रो परफेक्ट दिखें */
+    height: 175px;
     overflow: hidden;
 }
 
@@ -135,6 +154,125 @@
 
 
 /* ==========================================
+   WATCH HISTORY ENHANCED CARD STYLING
+   ================================---------- */
+.history-card .poster-wrapper {
+    position: relative;
+}
+
+.history-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 42px;
+    height: 42px;
+    background: rgba(0, 210, 255, 0.85);
+    color: #090b10;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+    z-index: 3;
+    cursor: pointer;
+}
+
+.anime-card:hover .history-play-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.history-options-container {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 4;
+}
+
+.history-dots-btn {
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.history-dots-btn:hover {
+    background: var(--accent-blue);
+    color: #000;
+}
+
+.history-dropdown-menu {
+    position: absolute;
+    top: 34px;
+    right: 0;
+    background: rgba(18, 24, 38, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    display: none;
+    flex-direction: column;
+    width: 130px;
+    padding: 6px 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.history-dropdown-menu.active {
+    display: flex;
+}
+
+.history-dropdown-menu button {
+    background: transparent;
+    border: none;
+    color: #f0f6fc;
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.history-dropdown-menu button:hover {
+    background: rgba(0, 210, 255, 0.15);
+    color: var(--accent-blue);
+}
+
+.history-card .meta-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.time-left {
+    color: var(--accent-blue);
+    font-weight: 700;
+    font-size: 0.72rem;
+    background: rgba(0, 210, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+
+/* ==========================================
    6. FOOTER STYLING
    ================================---------- */
 footer {
@@ -166,7 +304,6 @@ footer span {
     margin-top: 15px;
 }
 
-/* Circular Video Container - 140px for perfect character scaling */
 .empty-video-container {
     position: relative;
     width: 140px;
@@ -182,7 +319,6 @@ footer span {
     box-shadow: 0 10px 25px rgba(0, 210, 255, 0.3);
 }
 
-/* Canvas for Transparent Video Rendering */
 #historyEmptyCanvas {
     display: block;
     width: 100%;
@@ -193,7 +329,6 @@ footer span {
     z-index: 2;
 }
 
-/* Hidden Source Video */
 #historySourceVideo {
     position: absolute;
     top: 0;
@@ -249,35 +384,37 @@ footer span {
     .menu-toggle { display: block; }
     .search-container { max-width: 180px; }
     .row-cards-track .anime-card { width: 230px; }
+    #historyContentWrapper .row-cards-track .anime-card,
+    .watch-history-scroll .row-cards-track .anime-card { width: 210px; }
     .anime-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .sub-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
     .hero-title { font-size: 1.9rem; }
     .hero-character-container { width: 300px; height: 300px; }
 }
 
-/* === MEDIA QUERY: Mobile View (Max Width: 768px) - 2 full + 1 half card view === */
+/* === MEDIA QUERY: Mobile View (Max Width: 768px) === */
 @media (max-width: 768px) {
     nav { padding: 12px 4%; }
     .search-container { max-width: 140px; }
     .search-box input { padding: 6px 30px 6px 10px; font-size: 0.8rem; }
     
     .row-cards-track .anime-card { width: 145px; }
+    #historyContentWrapper .row-cards-track .anime-card,
+    .watch-history-scroll .row-cards-track .anime-card { width: 145px; }
+    
     .poster-wrapper { height: 140px; }
     .crunchyroll-rows-wrapper { gap: 15px; }
 
-    /* Mobile view ke liye clear history button ka size aur font-size decrease kiya gaya hai */
     .clear-history-btn {
         padding: 4px 10px;
         font-size: 0.75rem;
         gap: 5px;
     }
     
-    /* Section titles ko Anime Verse ke mukable chhota aur balance kiya gaya hai */
     .section-title {
         font-size: 1.1rem;
     }
 
-    /* मोबाइल व्यू में हीरो बैनर वर्टिकल हो जाएगा */
     .hero-banner {
         flex-direction: column;
         text-align: center;
@@ -301,6 +438,9 @@ footer span {
 /* === MEDIA QUERY: Small Mobile View (Max Width: 480px) === */
 @media (max-width: 480px) {
     .row-cards-track .anime-card { width: 135px; }
+    #historyContentWrapper .row-cards-track .anime-card,
+    .watch-history-scroll .row-cards-track .anime-card { width: 135px; }
+    
     .poster-wrapper { height: 130px; }
     .anime-grid { grid-template-columns: 1fr; }
     .hero-character-container { width: 220px; height: 220px; }
@@ -315,8 +455,6 @@ footer span {
 /* ==========================================
    5. VIP SUBSCRIPTION & PRICING CARDS
    ================================---------- */
-
-/* VIP Header Wrapper & Anchored Character Styling */
 .vip-header-wrapper {
     position: relative;
     display: flex;
@@ -325,7 +463,6 @@ footer span {
     padding-top: 22px;
 }
 
-/* Character Graphic positioned precisely over the 'tion' corner */
 .vip-floating-character {
     position: absolute;
     top: -16px;
@@ -339,16 +476,6 @@ footer span {
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 4px 10px rgba(0, 210, 255, 0.45));
-}
-
-/* Billing Toggle Switch Styles */
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    width: 100%;
 }
 
 .billing-toggle-container {
@@ -382,7 +509,6 @@ footer span {
     font-weight: 700;
 }
 
-/* Toggle Switch CSS */
 .switch {
     position: relative;
     display: inline-block;
@@ -425,7 +551,6 @@ input:checked + .slider:before {
     transform: translateX(18px);
 }
 
-/* Grid layout for Desktop (4 columns) */
 .sub-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -445,7 +570,6 @@ input:checked + .slider:before {
     justify-content: space-between;
 }
 
-/* Hover effect for selection/highlight */
 .sub-card:hover, .sub-card.popular:hover {
     transform: translateY(-5px);
     border-color: var(--accent-blue);
@@ -466,7 +590,6 @@ input:checked + .slider:before {
     margin-bottom: 18px;
 }
 
-/* Plan Badges & Buttons */
 .plan-status-badge {
     display: inline-block;
     background: rgba(255, 255, 255, 0.08);
@@ -516,8 +639,6 @@ input:checked + .slider:before {
 /* ==========================================
    RESPONSIVE MEDIA QUERIES (TABLET & MOBILE)
    ========================================== */
-
-/* === MEDIA QUERY: Large Tablet / Small Laptop View (Max Width: 1100px) === */
 @media (max-width: 1100px) {
     .sub-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -525,7 +646,6 @@ input:checked + .slider:before {
     }
 }
 
-/* === MEDIA QUERY: Tablet / Medium Device View (Max Width: 768px) === */
 @media (max-width: 768px) {
     .vip-header-wrapper {
         padding-top: 30px;
@@ -547,27 +667,26 @@ input:checked + .slider:before {
     }
 }
 
-/* === MEDIA QUERY: Mobile View (Max Width: 650px) - 2x2 Grid Layout === */
 @media (max-width: 650px) {
     .sub-grid {
-        grid-template-columns: repeat(2, 1fr); /* Mobile par 2 columns (2x2 grid) */
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
     
     .sub-card {
-        padding: 16px 12px; /* Mobile screen ke hisab se compact padding */
+        padding: 16px 12px;
     }
 
     .sub-title {
-        font-size: 1.05rem; /* Plan titles ka font size chhota kiya gaya hai */
+        font-size: 1.05rem;
     }
 
     .sub-price {
-        font-size: 1.35rem; /* Plan prices ka font size balance kiya gaya hai */
+        font-size: 1.35rem;
     }
 
     .sub-card p {
-        font-size: 0.72rem !important; /* Plan descriptions ko compact banaya gaya hai */
+        font-size: 0.72rem !important;
     }
     
     .vip-header-wrapper {
@@ -584,7 +703,7 @@ input:checked + .slider:before {
     }
 
     .section-title {
-        font-size: 1.15rem; /* Section titles (VIP Subscription, etc.) ko Anime Verse ke mukable chhota rakha hai */
+        font-size: 1.15rem;
     }
 
     .billing-toggle-container {

@@ -14,83 +14,76 @@
         <!-- ROW 1: Watch History -->
         <div class="movie-row-scroll">
             <div class="row-cards-track" id="historyRow1">
-                <div class="anime-card">
+                
+                <!-- History Card 1 -->
+                <div class="anime-card history-card">
                     <div class="poster-wrapper skeleton-loader">
+                        <!-- Top-Right Three Dots Menu Button -->
+                        <div class="history-options-container">
+                            <button class="history-dots-btn" onclick="toggleHistoryMenu(event, this)">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <div class="history-dropdown-menu">
+                                <button onclick="removeSingleHistory(this)"><i class="fa-solid fa-trash"></i> Remove</button>
+                                <button onclick="shareHistoryItem(this)"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                            </div>
+                        </div>
+
                         <span class="card-badge">EP 12</span>
                         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="History 1" loading="lazy">
+                        
+                        <!-- Center Play Overlay Button -->
+                        <div class="history-play-overlay">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
                     </div>
                     <div class="card-info">
                         <div class="anime-name">Solo Leveling</div>
-                        <div class="meta-info"><span>Watched 2h ago</span></div>
+                        <div class="meta-info">
+                            <span>Watched 2h ago</span>
+                            <span class="time-left">14m left</span>
+                        </div>
                     </div>
                 </div>
-                <div class="anime-card">
+
+                <!-- History Card 2 -->
+                <div class="anime-card history-card">
                     <div class="poster-wrapper skeleton-loader">
+                        <div class="history-options-container">
+                            <button class="history-dots-btn" onclick="toggleHistoryMenu(event, this)">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <div class="history-dropdown-menu">
+                                <button onclick="removeSingleHistory(this)"><i class="fa-solid fa-trash"></i> Remove</button>
+                                <button onclick="shareHistoryItem(this)"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                            </div>
+                        </div>
+
                         <span class="card-badge">EP 08</span>
                         <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 2" loading="lazy">
+                        
+                        <div class="history-play-overlay">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
                     </div>
                     <div class="card-info">
                         <div class="anime-name">Jujutsu Kaisen</div>
-                        <div class="meta-info"><span>Watched yesterday</span></div>
+                        <div class="meta-info">
+                            <span>Yesterday</span>
+                            <span class="time-left">08m left</span>
+                        </div>
                     </div>
                 </div>
-                <div class="anime-card">
-                    <div class="poster-wrapper skeleton-loader">
-                        <span class="card-badge">EP 24</span>
-                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" alt="History 3" loading="lazy">
-                    </div>
-                    <div class="card-info">
-                        <div class="anime-name">Demon Slayer</div>
-                        <div class="meta-info"><span>Watched 2 days ago</span></div>
-                    </div>
-                </div>
-                <div class="anime-card">
-                    <div class="poster-wrapper skeleton-loader">
-                        <span class="card-badge">EP 05</span>
-                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" alt="History 4" loading="lazy">
-                    </div>
-                    <div class="card-info">
-                        <div class="anime-name">One Piece</div>
-                        <div class="meta-info"><span>Watched 3 days ago</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- ROW 2: Watch History -->
-        <div class="movie-row-scroll">
-            <div class="row-cards-track" id="historyRow2">
-                <div class="anime-card">
-                    <div class="poster-wrapper skeleton-loader">
-                        <span class="card-badge">EP 01</span>
-                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" alt="History 5" loading="lazy">
-                    </div>
-                    <div class="card-info">
-                        <div class="anime-name">Naruto Shippuden</div>
-                        <div class="meta-info"><span>Watched last week</span></div>
-                    </div>
-                </div>
-                <div class="anime-card">
-                    <div class="poster-wrapper skeleton-loader">
-                        <span class="card-badge">EP 10</span>
-                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="History 6" loading="lazy">
-                    </div>
-                    <div class="card-info">
-                        <div class="anime-name">Attack on Titan</div>
-                        <div class="meta-info"><span>Watched last week</span></div>
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Empty State Container with Chroma Key Canvas -->
+    <!-- Empty State Container -->
     <div id="emptyHistoryState" class="empty-history-state" style="display: none;">
         <div class="empty-video-container">
-            <!-- Transparent Chroma Key Canvas jo circle ke andar render karega -->
             <canvas id="historyEmptyCanvas"></canvas>
-            <!-- Source Video (Directly loaded so browser renders it properly) -->
             <video id="historySourceVideo" crossorigin="anonymous" autoplay loop muted playsinline preload="auto">
                 <source src="https://res.cloudinary.com/irecrpdg/video/upload/v1793771600/gemini_generated_video_e4513a66.mp4" type="video/mp4">
                 Your browser does not support the video tag.
