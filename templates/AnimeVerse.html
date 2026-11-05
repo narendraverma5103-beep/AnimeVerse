@@ -1,93 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeVerse - Narendra Verma | Ultra Modern Anime Web Platform</title>
 
-    <!-- External Libraries -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    {% include 'components/header.html' %}
 
-
-
-    <!-- Custom CSS (Flask Static Path) -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body id="home" class="relative select-none">
-
-    <!-- Patches Layer -->
-    <div class="ambient-patch-1"></div>
-    <div class="ambient-patch-2"></div>
-    <div class="ambient-patch-center"></div>
+    {% include 'components/patches.html' %}
 
     <!-- 3D Canvas Layer -->
     <canvas id="threeCanvas"></canvas>
 
-    <!-- Navigation Header -->
-    <nav>
-        <a href="#hero" class="brand-logo">
-            <i class='bx bxs-cube-alt cube-icon'></i>
-            <span>ANIME VERSE</span>
-        </a>
+    {% include 'components/desk_nav.html' %}
 
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search anime..." autocomplete="off">
-                <button type="button" title="Search Anime"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-        </div>
-
-        <ul class="nav-links">
-            <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
-            <li><a href="#movies"><i class="fa-solid fa-film"></i> Anime Movies</a></li>
-            <li><a href="#history"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
-            <li><a href="#popular"><i class="fa-solid fa-fire"></i> Popular Series</a></li>
-            <li><a href="#trending"><i class="fa-solid fa-bolt"></i> Trending</a></li>
-            <li><a href="#subscription"><i class="fa-solid fa-crown"></i> Sub</a></li>
-        </ul>
-
-        <div class="auth-btns">
-            <a href="#subscription" class="btn-glow"><i class="fa-solid fa-rocket"></i> Get Started</a>
-        </div>
-
-        <button class="menu-toggle" type="button" onclick="toggleSidebar()" aria-label="Toggle Navigation Menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </nav>
-
-    <!-- Mobile Drawer Sidebar -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-    <aside class="sidebar-menu" id="sidebarMenu">
-        <div>
-            <div class="sidebar-header">
-                <div class="brand-logo" style="font-size:1.1rem">
-                    <i class='bx bxs-cube-alt cube-icon' style="font-size: 20px;"></i>
-                    <span>ANIME VERSE</span>
-                </div>
-                <button class="close-btn" type="button" onclick="closeSidebar()" aria-label="Close menu">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <ul class="sidebar-links">
-                <li><a href="#hero" onclick="closeSidebar()"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="#movies" onclick="closeSidebar()"><i class="fa-solid fa-film"></i> Anime Movies</a></li>
-                <li><a href="#history" onclick="closeSidebar()"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
-                <li><a href="#popular" onclick="closeSidebar()"><i class="fa-solid fa-fire"></i> Popular Series</a></li>
-                <li><a href="#trending" onclick="closeSidebar()"><i class="fa-solid fa-bolt"></i> Trending</a></li>
-                <li><a href="#subscription" onclick="closeSidebar()"><i class="fa-solid fa-crown"></i> Sub</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar-auth">
-            <a href="#subscription" class="btn-glow" onclick="closeSidebar()"><i class="fa-solid fa-rocket"></i> Get Started</a>
-        </div>
-    </aside>
+    {% include 'components/side_bar.html' %}
 
     <!-- Main Content Container -->
     <main class="container">
@@ -95,6 +16,11 @@
 
 
         {% include 'components/hero_section.html' %}
+
+
+
+
+
 
         {% include 'components/movies_section.html' %}
 
@@ -112,26 +38,17 @@
         {% include 'components/subscription_section.html' %}
         
 
-       
-        
-
-       
-
     </main>
+    
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 <span>AnimeVerse</span>. Developed with ❤️ by Narendra Verma.</p>
-    </footer>
+    {% include 'components/footer.html' %}
 
     <!-- Custom JavaScript Scripts (Flask Static Path) -->
     <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
     <script src="{{ url_for('static', filename='js/smooth_scroll.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bounce_cube.js') }}"></script>
     <!-- Chroma Key & 3D script link -->
-
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
 <script src="{{ url_for('static', filename='js/Chroma_3D.js') }}"></script>
 </body>
 </html>

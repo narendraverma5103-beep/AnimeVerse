@@ -1,0 +1,366 @@
+{% include 'components/header.html' %}
+
+    {% include 'components/patches.html' %}
+
+    <!-- 3D Canvas Layer -->
+    <canvas id="threeCanvas"></canvas>
+
+    {% include 'components/desk_nav.html' %}
+
+    {% include 'components/side_bar.html' %}
+
+    <!-- Main Content Container -->
+    <main class="container">
+
+        <!-- ==========================================
+           SECTION 1: ANIME SEASON BANNER & INFO DETAILS
+           ========================================== -->
+        <section id="animeInfoBanner" class="hero-banner content-section" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 35px 40px; min-height: 400px;">
+            <div class="hero-bg-img-wrapper">
+                <!-- Dynamic Season Banner Image -->
+                <img id="seasonBannerImg" src="https://res.cloudinary.com/irecrpdg/image/upload/v1793873777/file_00000000a7a88211b49d11849aad2d64.png" alt="{{ anime_name }}">
+            </div>
+            <div class="hero-overlay"></div>
+            
+            <div class="hero-content" style="position: relative; z-index: 30; width: 100%;">
+                <span class="hero-tag"><i class="fa-solid fa-crown"></i> <span id="bannerSeasonTag">SEASON 1</span></span>
+                <h1 class="hero-title" style="font-size: 2.2rem; margin-bottom: 10px;">{{ anime_name }}</h1>
+                <p id="bannerSeasonDesc" class="hero-desc" style="margin-bottom: 15px; max-width: 700px;">Stream Season 1 episodes in ultimate high definition. Experience the epic journey with immersive audio and subtitles.</p>
+
+                <!-- Anime Metadata Meta Bar (Quality, Audio, Subtitles & Watch Later Button) -->
+                <div class="anime-meta-bar" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap; background: rgba(9, 11, 16, 0.75); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px);">
+                    <span style="background: rgba(0, 210, 255, 0.15); color: var(--accent-blue); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; border: 1px solid rgba(0, 210, 255, 0.3);">
+                        <i class="fa-solid fa-hd"></i> 1080p FHD
+                    </span>
+                    <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">
+                        <i class="fa-solid fa-volume-high" style="color: var(--accent-blue); margin-right: 5px;"></i> Audio: Japanese, English
+                    </span>
+                    <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">
+                        <i class="fa-solid fa-closed-captioning" style="color: var(--accent-blue); margin-right: 5px;"></i> Subtitles: Multi-Lang
+                    </span>
+                    
+                    <!-- Watch Later Button -->
+                    <button class="btn-outline" onclick="toggleWatchLater(this)" style="margin-left: auto; cursor: pointer;">
+                        <i class="fa-solid fa-bookmark"></i> Watch Later
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIDEO PLAYER SECTION (Hidden by default, shown when an episode is clicked) -->
+        <div id="videoPlayerSection" class="content-section" style="display: none;">
+            <div class="player-wrapper" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 12px 35px rgba(0,0,0,0.8);">
+                <video id="mainVideoPlayer" controls autoplay style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="https://res.cloudinary.com/irecrpdg/video/upload/q_auto,f_auto/gemini_generated_video_e4513a66.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                <!-- Custom 10s Skip Forward / Backward Controls -->
+                <div style="position: absolute; bottom: 70px; left: 20px; display: flex; gap: 10px; z-index: 5;">
+                    <button onclick="skipTime(-10)" style="background: rgba(0,0,0,0.7); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 700; backdrop-filter: blur(4px);">
+                        <i class="fa-solid fa-rotate-left"></i> -10s
+                    </button>
+                    <button onclick="skipTime(10)" style="background: rgba(0,0,0,0.7); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 700; backdrop-filter: blur(4px);">
+                        +10s <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+
+                <!-- Right Hand Side Play Next Episode Button (|>) -->
+                <div style="position: absolute; bottom: 70px; right: 20px; z-index: 5;">
+                    <button onclick="playNextEpisode()" style="background: rgba(0, 210, 255, 0.85); color: #090b10; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 800; display: flex; align-items: center; gap: 6px; box-shadow: 0 0 15px rgba(0,210,255,0.5);">
+                        Next Ep <i class="fa-solid fa-forward-step"></i>
+                    </button>
+                </div>
+
+                <!-- Top Right Settings Menu Button inside Video Player -->
+                <div style="position: absolute; top: 15px; right: 130px; z-index: 10;">
+                    <button onclick="togglePlayerSettings(event)" style="background: rgba(0,0,0,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.3); width: 38px; height: 38px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                    <!-- Settings Dropdown Panel -->
+                    <div id="playerSettingsDropdown" style="position: absolute; top: 45px; right: 0; background: rgba(18, 24, 38, 0.95); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; width: 220px; padding: 10px 0; display: none; flex-direction: column; backdrop-filter: blur(12px); box-shadow: 0 10px 25px rgba(0,0,0,0.9);">
+                        <div style="padding: 8px 15px; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.08);">PLAYBACK SETTINGS</div>
+                        
+                        <div style="padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #fff;">
+                            <span>Autoplay</span>
+                            <input type="checkbox" checked style="accent-color: var(--accent-blue); cursor: pointer;">
+                        </div>
+                        <div style="padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #fff; cursor: pointer;" onclick="alert('Audio: Japanese / English')">
+                            <span>Audio</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: var(--text-muted);"></i>
+                        </div>
+                        <div style="padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #fff; cursor: pointer;" onclick="alert('Subtitles: English / Off')">
+                            <span>Subtitles</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: var(--text-muted);"></i>
+                        </div>
+                        <div style="padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #fff; cursor: pointer;" onclick="alert('Quality: 1080p FHD')">
+                            <span>Quality</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: var(--text-muted);"></i>
+                        </div>
+                        <div style="padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #fff; cursor: pointer;" onclick="alert('Playback Speed: 1.0x')">
+                            <span>Speed</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: var(--text-muted);"></i>
+                        </div>
+                        <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; padding-top: 4px;">
+                            <button onclick="alert('Report submitted successfully. Thank you!')" style="background: transparent; border: none; color: #ff4b4b; width: 100%; text-align: left; padding: 8px 15px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Report a Problem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Close Player Button -->
+                <button onclick="closePlayer()" style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; backdrop-filter: blur(4px);">
+                    <i class="fa-solid fa-xmark"></i> Close Player
+                </button>
+            </div>
+        </div>
+
+
+        <!-- ==========================================
+           SECTION 2: SEASON SELECTOR, MORE LIKE THIS & EPISODES CONTAINER
+           ========================================== -->
+        <section class="content-section" id="episodesSection">
+            
+            <!-- Top Header with Season Selector & More Like This Button -->
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                <h2 class="section-title"><i class="fa-solid fa-list" style="color:var(--accent-blue)"></i> Episodes List (<span id="currentSeasonHeading">Season 1</span>)</h2>
+                
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <!-- More Like This Button -->
+                    <button class="btn-outline" onclick="toggleMoreLikeThis()" style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-clapperboard"></i> More Like This
+                    </button>
+
+                    <!-- Season Dropdown Selection Button -->
+                    <div class="season-selector-container" style="display: flex; align-items: center; gap: 10px;">
+                        <label for="seasonSelect" style="font-weight: 600; font-size: 0.9rem; color: var(--text-muted);">Select Season:</label>
+                        <select id="seasonSelect" onchange="changeSeason(this.value)" style="background: rgba(18, 24, 38, 0.85); color: #fff; border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 14px; border-radius: 8px; font-weight: 700; outline: none; cursor: pointer; backdrop-filter: blur(6px);">
+                            <option value="1">Season 1</option>
+                            <option value="2">Season 2</option>
+                            <option value="3">Season 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episodes Container: 1 Column with Multiple Rows (Vertical List Layout) -->
+            <div class="episodes-vertical-list" id="episodesListContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                
+                <!-- Episode 1 -->
+                <div class="episode-row-item" onclick="playEpisode('Episode 1', 1)" style="display: flex; align-items: center; gap: 15px; background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(8px);">
+                    <div style="position: relative; width: 110px; height: 65px; border-radius: 8px; overflow: hidden; flex-shrink: 0;" class="skeleton-loader">
+                        <img id="epImg1" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" alt="EP 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;" class="ep-play-hover"><i class="fa-solid fa-play" style="color: var(--accent-blue); font-size: 1.1rem;"></i></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div id="epTitle1" style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Episode 1: The Beginning</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">24m • High Definition</div>
+                    </div>
+                    <div style="color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; background: rgba(0,210,255,0.1); padding: 6px 12px; border-radius: 6px;">
+                        <i class="fa-solid fa-play"></i> Play
+                    </div>
+                </div>
+
+                <!-- Episode 2 -->
+                <div class="episode-row-item" onclick="playEpisode('Episode 2', 2)" style="display: flex; align-items: center; gap: 15px; background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(8px);">
+                    <div style="position: relative; width: 110px; height: 65px; border-radius: 8px; overflow: hidden; flex-shrink: 0;" class="skeleton-loader">
+                        <img id="epImg2" src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" alt="EP 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;" class="ep-play-hover"><i class="fa-solid fa-play" style="color: var(--accent-blue); font-size: 1.1rem;"></i></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div id="epTitle2" style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Episode 2: Awakening</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">23m • High Definition</div>
+                    </div>
+                    <div style="color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; background: rgba(0,210,255,0.1); padding: 6px 12px; border-radius: 6px;">
+                        <i class="fa-solid fa-play"></i> Play
+                    </div>
+                </div>
+
+                <!-- Episode 3 -->
+                <div class="episode-row-item" onclick="playEpisode('Episode 3', 3)" style="display: flex; align-items: center; gap: 15px; background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(8px);">
+                    <div style="position: relative; width: 110px; height: 65px; border-radius: 8px; overflow: hidden; flex-shrink: 0;" class="skeleton-loader">
+                        <img id="epImg3" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="EP 3" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;" class="ep-play-hover"><i class="fa-solid fa-play" style="color: var(--accent-blue); font-size: 1.1rem;"></i></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div id="epTitle3" style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Episode 3: Trials</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">24m • High Definition</div>
+                    </div>
+                    <div style="color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; background: rgba(0,210,255,0.1); padding: 6px 12px; border-radius: 6px;">
+                        <i class="fa-solid fa-play"></i> Play
+                    </div>
+                </div>
+
+                <!-- Episode 4 -->
+                <div class="episode-row-item" onclick="playEpisode('Episode 4', 4)" style="display: flex; align-items: center; gap: 15px; background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(8px);">
+                    <div style="position: relative; width: 110px; height: 65px; border-radius: 8px; overflow: hidden; flex-shrink: 0;" class="skeleton-loader">
+                        <img id="epImg4" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" alt="EP 4" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;" class="ep-play-hover"><i class="fa-solid fa-play" style="color: var(--accent-blue); font-size: 1.1rem;"></i></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div id="epTitle4" style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Episode 4: Clash</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">22m • High Definition</div>
+                    </div>
+                    <div style="color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; background: rgba(0,210,255,0.1); padding: 6px 12px; border-radius: 6px;">
+                        <i class="fa-solid fa-play"></i> Play
+                    </div>
+                </div>
+
+                <!-- Episode 5 -->
+                <div class="episode-row-item" onclick="playEpisode('Episode 5', 5)" style="display: flex; align-items: center; gap: 15px; background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(8px);">
+                    <div style="position: relative; width: 110px; height: 65px; border-radius: 8px; overflow: hidden; flex-shrink: 0;" class="skeleton-loader">
+                        <img id="epImg5" src="https://images.unsplash.com/photo-1563089145-599997674d42?w=500" alt="EP 5" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;" class="ep-play-hover"><i class="fa-solid fa-play" style="color: var(--accent-blue); font-size: 1.1rem;"></i></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div id="epTitle5" style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Episode 5: Resolution</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">25m • High Definition</div>
+                    </div>
+                    <div style="color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; background: rgba(0,210,255,0.1); padding: 6px 12px; border-radius: 6px;">
+                        <i class="fa-solid fa-play"></i> Play
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+    
+    {% include 'components/footer.html' %}
+
+    <!-- Custom JavaScript Scripts (Flask Static Path) -->
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/smooth_scroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bounce_cube.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Chroma_3D.js') }}"></script>
+
+    <!-- Interactive Watch Page Script with Dynamic Season & Banner Switching -->
+    <script>
+        let currentSeason = 1;
+        let currentEpIndex = 1;
+
+        // Season Data Database Mock
+        const seasonsData = {
+            1: {
+                bannerImg: "https://res.cloudinary.com/irecrpdg/image/upload/v1793873777/file_00000000a7a88211b49d11849aad2d64.png",
+                tag: "SEASON 1",
+                desc: "Stream Season 1 episodes in ultimate high definition. Experience the epic journey with immersive audio and subtitles.",
+                episodes: [
+                    { title: "Episode 1: The Beginning", img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" },
+                    { title: "Episode 2: Awakening", img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" },
+                    { title: "Episode 3: Trials", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" },
+                    { title: "Episode 4: Clash", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" },
+                    { title: "Episode 5: Resolution", img: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500" }
+                ]
+            },
+            2: {
+                bannerImg: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200",
+                tag: "SEASON 2",
+                desc: "Season 2 dives deeper into the dark secrets and intense battles. New allies and fearsome foes emerge.",
+                episodes: [
+                    { title: "Episode 1: New Threat", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" },
+                    { title: "Episode 2: Hidden Power", img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" },
+                    { title: "Episode 3: Alliance", img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" },
+                    { title: "Episode 4: Betrayal", img: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500" },
+                    { title: "Episode 5: Ultimate War", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" }
+                ]
+            },
+            3: {
+                bannerImg: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1200",
+                tag: "SEASON 3",
+                desc: "The final showdown in Season 3. Witness the conclusion of the legendary saga as destinies collide.",
+                episodes: [
+                    { title: "Episode 1: Final Stand", img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500" },
+                    { title: "Episode 2: Sacrifice", img: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500" },
+                    { title: "Episode 3: Breakthrough", img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500" },
+                    { title: "Episode 4: Legacy", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" },
+                    { title: "Episode 5: Eternity", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" }
+                ]
+            }
+        };
+
+        function changeSeason(seasonNum) {
+            currentSeason = seasonNum;
+            const data = seasonsData[seasonNum];
+            
+            // Update Banner Information & Poster dynamically
+            document.getElementById('seasonBannerImg').src = data.bannerImg;
+            document.getElementById('bannerSeasonTag').innerText = data.tag;
+            document.getElementById('bannerSeasonDesc').innerText = data.desc;
+            document.getElementById('currentSeasonHeading').innerText = "Season " + seasonNum;
+
+            // Update Episodes List Dynamically for the selected Season
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('epTitle' + i).innerText = data.episodes[i - 1].title;
+                document.getElementById('epImg' + i).src = data.episodes[i - 1].img;
+            }
+        }
+
+        function playEpisode(epName, index) {
+            currentEpIndex = index || 1;
+            document.getElementById('animeInfoBanner').style.display = 'none';
+            document.getElementById('videoPlayerSection').style.display = 'block';
+            
+            const player = document.getElementById('mainVideoPlayer');
+            player.play();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function playNextEpisode() {
+            currentEpIndex++;
+            if(currentEpIndex > 5) currentEpIndex = 1;
+            const currentData = seasonsData[currentSeason];
+            alert("Playing Next: " + currentData.episodes[currentEpIndex - 1].title);
+            const player = document.getElementById('mainVideoPlayer');
+            player.currentTime = 0;
+            player.play();
+        }
+
+        function closePlayer() {
+            const player = document.getElementById('mainVideoPlayer');
+            player.pause();
+            document.getElementById('videoPlayerSection').style.display = 'none';
+            document.getElementById('animeInfoBanner').style.display = 'flex';
+            document.getElementById('playerSettingsDropdown').style.display = 'none';
+        }
+
+        function skipTime(seconds) {
+            const player = document.getElementById('mainVideoPlayer');
+            player.currentTime += seconds;
+        }
+
+        function togglePlayerSettings(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('playerSettingsDropdown');
+            dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        window.addEventListener('click', () => {
+            const dropdown = document.getElementById('playerSettingsDropdown');
+            if(dropdown) dropdown.style.display = 'none';
+        });
+
+        function toggleWatchLater(btn) {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Added to Watch Later';
+            btn.style.background = 'var(--accent-blue)';
+            btn.style.color = '#000';
+        }
+
+        function toggleMoreLikeThis() {
+            alert("Displaying recommendations and similar anime series!");
+        }
+    </script>
+
+    <!-- Additional Hover Style for Episode Row -->
+    <style>
+        .episode-row-item:hover {
+            border-color: var(--accent-blue) !important;
+            transform: translateX(4px);
+            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.25);
+            background: linear-gradient(90deg, rgba(0, 210, 255, 0.08) 0%, rgba(18, 24, 38, 0.85) 100%);
+        }
+        .episode-row-item:hover .ep-play-hover {
+            opacity: 1 !important;
+        }
+    </style>
+
+</body>
+</html>
